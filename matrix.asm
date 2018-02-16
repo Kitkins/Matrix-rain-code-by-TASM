@@ -25,10 +25,10 @@ rain:
     mov  ax, dx
     xor  dx, dx
     mov  cx, 94
-    div  cx             ; here dx contains the remainder of the division - from 0 to 9
-    add  dl, '!'        ; to ascii from '0' to '9'
+    div  cx             ; here dx contains the remainder of the division - from 33 to 126
+    add  dl, '!'        ; to ascii from '!' to '~'
         
-    mov ah, 2
+    mov ah, 2           ; call interrupt to display a value in DL
     int 21h
     
     jmp rain
