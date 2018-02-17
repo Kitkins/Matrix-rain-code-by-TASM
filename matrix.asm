@@ -19,18 +19,21 @@ rain:
     mov dl, column      ; dl for column
     int 10h
     
-    mov ah, 00h         ; interrupts to get system time        
-    int 1Ah             ; CX:DX now hold number of clock ticks since midnight     
+    push ax             ; Random Clr with Ticks of the Day
+    mov ah, 00h
+    int 1Ah
+    shr dl, 2           ; Try to slow down
+    pop ax
     
     mov  ax, dx
     xor  dx, dx
     mov  cx, 94
-    div  cx             ; here dx contains the remainder of the division - from 33 to 126
-    add  dl, '!'        ; to ascii from '!' to '~'
+    div  cx             ; here dx contains the remainder of the division - from 0 to 9
+    add  dl, '!'        ; to ascii from '0' to '9'
         
-    mov ah, 2           ; call interrupt to display a value in DL
+    mov ah, 2
     int 21h
-    
+
     jmp rain
     
     ret
