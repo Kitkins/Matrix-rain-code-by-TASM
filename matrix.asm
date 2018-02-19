@@ -31,8 +31,12 @@ rain:
     div  cx             ; here dx contains the remainder of the division - from 0 to 9
     add  dl, '!'        ; to ascii from '0' to '9'
         
-    mov ah, 2
-    int 21h
+    mov ah, 09h
+    mov al, dl
+    mov bh, 00h
+    mov bl, 04h
+    mov cx, 01h
+    int 10h
 
     jmp rain
     
